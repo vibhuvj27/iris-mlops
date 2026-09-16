@@ -1,0 +1,52 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing Python dependencies...'
+
+                bat '''
+                    python -m pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo 'Running tests...'
+
+                bat '''
+                    python -m pytest -v
+                '''
+            }
+        }
+
+        stage('Train Model') {
+            steps {
+                echo 'Running ML training with MLflow...'
+
+                bat '''
+                    python train.py
+                '''
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo 'Jenkins pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Jenkins pipeline failed!'
+        }
+
+        always {
+            echo 'Pipeline execution finished.'
+        }
+    }
+}
