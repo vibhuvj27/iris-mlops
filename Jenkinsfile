@@ -29,6 +29,7 @@ pipeline {
                 echo 'Running ML training with MLflow...'
 
                 bat '''
+                    set PYTHONIOENCODING=utf-8
                     python train.py
                 '''
             }
