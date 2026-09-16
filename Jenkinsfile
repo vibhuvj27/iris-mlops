@@ -9,7 +9,7 @@ pipeline {
                 echo 'Installing Python dependencies...'
 
                 bat '''
-                    python -m pip install -r requirements.txt
+                    python -m pip install -r requirements.txt --no-warn-script-location
                 '''
             }
         }
